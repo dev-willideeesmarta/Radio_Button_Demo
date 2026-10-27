@@ -1,0 +1,108 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RadioButtonDemo extends JFrame implements ActionListener {
+    
+    // Declare components
+    JRadioButton birdButton, catButton, dogButton, rabbitButton, pigButton;
+    JLabel imageLabel;
+    ButtonGroup group;
+
+    // Image icons (Make sure to place image files like "pig.png", "cat.png", etc., in your project directory)
+    ImageIcon birdIcon = new ImageIcon("bird.png");
+    ImageIcon catIcon = new ImageIcon("cat.png");
+    ImageIcon dogIcon = new ImageIcon("dog.png");
+    ImageIcon rabbitIcon = new ImageIcon("rabbit.png");
+    ImageIcon pigIcon = new ImageIcon("pig.png");
+
+    public RadioButtonDemo() {
+        // Set frame properties
+        setTitle("RadioButtonDemo");
+        setSize(500, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Create a panel for the radio buttons on the left (WEST)
+        JPanel radioPanel = new JPanel();
+        radioPanel.setLayout(new GridLayout(5, 1, 5, 5));
+
+        birdButton = new JRadioButton("Bird");
+        catButton = new JRadioButton("Cat");
+        dogButton = new JRadioButton("Dog");
+        rabbitButton = new JRadioButton("Rabbit");
+        pigButton = new JRadioButton("Pig");
+
+        // Group the radio buttons so only one can be selected at a time
+        group = new ButtonGroup();
+        group.add(birdButton);
+        group.add(catButton);
+        group.add(dogButton);
+        group.add(rabbitButton);
+        group.add(pigButton);
+
+        // Register action listeners for each radio button
+        birdButton.addActionListener(this);
+        catButton.addActionListener(this);
+        dogButton.addActionListener(this);
+        rabbitButton.addActionListener(this);
+        pigButton.addActionListener(this);
+
+        // Add buttons to the panel
+        radioPanel.add(birdButton);
+        radioPanel.add(catButton);
+        radioPanel.add(dogButton);
+        radioPanel.add(rabbitButton);
+        radioPanel.add(pigButton);
+
+        // Create a label to display the pet image on the right (CENTER)
+        imageLabel = new JLabel();
+        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        // Set default selection to "Pig" as shown in your assignment image
+        pigButton.setSelected(true);
+        imageLabel.setIcon(pigIcon);
+
+        // Add panels to the frame layout
+        add(radioPanel, BorderLayout.WEST);
+        add(imageLabel, BorderLayout.CENTER);
+
+        setLocationRelativeTo(null); // Center the window on the screen
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String selectedPet = "";
+
+        if (birdButton.isSelected()) {
+            imageLabel.setIcon(birdIcon);
+            selectedPet = "Bird";
+        } else if (catButton.isSelected()) {
+            imageLabel.setIcon(catIcon);
+            selectedPet = "Cat";
+        } else if (dogButton.isSelected()) {
+            imageLabel.setIcon(dogIcon);
+            selectedPet = "Dog";
+        } else if (rabbitButton.isSelected()) {
+            imageLabel.setIcon(rabbitIcon);
+            selectedPet = "Rabbit";
+        } else if (pigButton.isSelected()) {
+            imageLabel.setIcon(pigIcon);
+            selectedPet = "Pig";
+        }
+
+        // Display the message box showing your selection as required
+        JOptionPane.showMessageDialog(this, "You selected: " + selectedPet, "Selection", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        // Run the GUI application safely on the Event Dispatch Thread
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new RadioButtonDemo().setVisible(true);
+            }
+        });
+    }
+}
